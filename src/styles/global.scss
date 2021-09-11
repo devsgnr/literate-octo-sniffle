@@ -1,0 +1,51 @@
+@import "./variable";
+@import "./typography";
+@import "./breakpoint";
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  background-color: var(--semi-light-color);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--heading-font-family);
+  margin: 25px 0 10px 0;
+
+  .italics {
+    font-style: italic;
+    color: var(--grey-color);
+  }
+  .bolder {
+    font-size: 900;
+  }
+}
+
+p {
+  font-family: var(--body-font-family);
+  font-size: var(--body-font-size);
+  font-weight: var(--body-font-weight);
+  line-height: 7px;
+
+  &.main {
+    color: var(--dark-color);
+  }
+}
+
+.container {
+  width: 100%;
+  height: 100%;
+
+  @include lg {
+    margin: auto;
+    width: 1150px;
+    height: 100%;
+  }
+}

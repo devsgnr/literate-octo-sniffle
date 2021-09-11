@@ -1,0 +1,20 @@
+.badge {
+  width: 80px;
+  border-radius: 15px;
+  text-align: center;
+  margin: 20px 0;
+
+  &[data-status="active"] {
+    background-color: var(--opaque-green);
+    color: var(--green);
+  }
+  &[data-status="inactive"] {
+    background-color: var(--opaque-red);
+    color: var(--red);
+  }
+
+  .text {
+    font-size: 12px;
+    font-weight: bolder;
+  }
+}
