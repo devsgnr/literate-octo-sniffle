@@ -16,6 +16,7 @@ const Home = () => {
   //it automatically fetching for the new page number provided
   const getPicture = useQuery(["getPictures", currentPage], async () => {
     const data = await GetPictures(currentPage);
+    window.scrollTo(0, 0); //Scroll to top after each page change
     return data;
   });
 
@@ -27,11 +28,6 @@ const Home = () => {
       setPageCount(Math.floor(data.data.photos.length / size));
     }
   );
-
-  //Scroll to the top when page is reload
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <main className="container">
