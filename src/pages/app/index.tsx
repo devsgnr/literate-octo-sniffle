@@ -3,7 +3,7 @@ import { GetPictures, GetPicturesCount } from "../../core/services/api/nasa";
 import { useQuery } from "react-query";
 import styles from "./home.module.scss";
 import { INasaData } from "../../interfaces/nasa-data";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Loader from "../../components/loader";
 import Pagination from "../../components/pagination";
 
