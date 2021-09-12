@@ -1,3 +1,5 @@
+@import "../../styles/breakpoint";
+
 .maximize {
   position: fixed;
   top: 0%;
@@ -27,8 +29,8 @@
 
     button {
       position: absolute;
-      top: 3.5%;
-      right: 2.5%;
+      top: 5%;
+      right: 7.5%;
       background-color: var(--opaque-black);
       padding: 10px;
       border-radius: 100%;
@@ -37,6 +39,11 @@
       justify-content: center;
       align-items: center;
       cursor: pointer;
+
+      @include lg {
+        top: 3.5%;
+        right: 2.5%;
+      }
     }
   }
 }

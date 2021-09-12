@@ -8,6 +8,7 @@ body {
   padding: 0;
   width: 100%;
   background-color: var(--semi-light-color);
+  scroll-behavior: smooth;
 }
 
 h1,
@@ -28,11 +29,13 @@ h6 {
   }
 }
 
-p {
+p,
+select,
+input {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size);
   font-weight: var(--body-font-weight);
-  line-height: 7px;
+  line-height: 10px;
 
   &.main {
     color: var(--dark-color);

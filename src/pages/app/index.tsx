@@ -4,8 +4,8 @@ import { useQuery } from "react-query";
 import styles from "./home.module.scss";
 import { INasaData } from "../../interfaces/nasa-data";
 import { useEffect, useState } from "react";
-import { ChevronLeft, ChevronRight } from "react-feather";
 import Loader from "../../components/loader";
+import Pagination from "../../components/pagination";
 
 const Home = () => {
   const [pageCount, setPageCount] = useState<number>(); //This is the total number of photos divided by the page size of (25)
@@ -41,9 +41,40 @@ const Home = () => {
         <Loader />
       ) : (
         <div className={styles.main}>
-          <h1>
-            <span className="italics">Spacetagram</span>
-          </h1>
+          <div className={styles.header}>
+            <h1>
+              <span className="italics">Spacetagram</span>
+            </h1>
+            <div className={styles.pagination}>
+              <Pagination
+                currentPage={currentPage}
+                pageCount={pageCount || 1}
+                nextPage={() => setCurrentPage(currentPage + 1)}
+                previousPage={() => setCurrentPage(currentPage - 1)}
+              />
+              <div>
+                <select
+                  onChange={(e) => {
+                    setCurrentPage(Number(e.target.value)); //Update currentPage state and scroll to the top
+                    window.scrollTo(0, 0);
+                  }}
+                >
+                  {Array(pageCount)
+                    .fill("")
+                    .map((pages: number, index: number) => (
+                      <option
+                        key={index}
+                        selected={currentPage === index + 1}
+                        value={index + 1}
+                      >
+                        {index + 1}
+                      </option>
+                    ))}
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className={styles.grid}>
             {getPicture.data?.data.photos.map(
               (photo: INasaData, index: number) => (
@@ -53,29 +84,14 @@ const Home = () => {
           </div>
         </div>
       )}
+
       <div className={styles.pagination}>
-        <p>
-          Page {currentPage} / {pageCount}{" "}
-          {/* Displays the current page you're on and the last possible page */}
-        </p>
-        <button
-          disabled={currentPage === 1} //Disable button to prevent user from going below specific page count
-          onClick={() => {
-            setCurrentPage(currentPage - 1); //Update currentPage state and scroll to the top
-            window.scrollTo(0, 0);
-          }}
-        >
-          <ChevronLeft />
-        </button>
-        <button
-          disabled={currentPage === pageCount} //Disable button to prevent user from going beyond specific page count
-          onClick={() => {
-            setCurrentPage(currentPage + 1); //Update currentPage state and scroll to the top
-            window.scrollTo(0, 0);
-          }}
-        >
-          <ChevronRight />
-        </button>
+        <Pagination
+          currentPage={currentPage}
+          pageCount={pageCount || 1}
+          nextPage={() => setCurrentPage(currentPage + 1)}
+          previousPage={() => setCurrentPage(currentPage - 1)}
+        />
         <div>
           <select
             onChange={(e) => {
