@@ -43,6 +43,7 @@ const Home = () => {
   const getPicture = useQuery(["getPictures", currentPage, rover], async () => {
     const data = await GetPictures(currentPage, rover);
     setRoverName(JSON.parse(rover).rover);
+    setCurrentPage(1);
     getPicturesCount.refetch();
     window.scrollTo(0, 0); //Scroll to top after each page change
     return data;
