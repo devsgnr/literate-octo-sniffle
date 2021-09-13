@@ -7,7 +7,7 @@ import {
 import { useQuery } from "react-query";
 import styles from "./home.module.scss";
 import { INasaData } from "../../interfaces/nasa-data";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Loader from "../../components/loader";
 import Pagination from "../../components/pagination";
 import { IOptions } from "../../interfaces/options";
@@ -20,6 +20,11 @@ const Home = () => {
   const [currentPage, setCurrentPage] = useState<number>(1); //This is the currentPage page number used to fetch a specific page
   const size = 25; //This is the constant page size given by NASA Open API
   const [roverName, setRoverName] = useState<string>("");
+
+  //Reset currentPage when a different rover is selected
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [roverName]);
 
   //Get the list of different based on selection
   const getRover = useQuery(["getRovers"], async () => {
@@ -34,7 +39,7 @@ const Home = () => {
     async () => {
       const option: IOptions = JSON.parse(rover);
       const data = await GetPicturesCount(option.rover, option.sol);
-      setPageCount(Math.floor(data.data.photos.length / size));
+      setPageCount(Math.floor(data.data.photos.length / size)); //set currentPage
     }
   );
 
@@ -42,9 +47,8 @@ const Home = () => {
   //it automatically fetching for the new page number provided
   const getPicture = useQuery(["getPictures", currentPage, rover], async () => {
     const data = await GetPictures(currentPage, rover);
-    setRoverName(JSON.parse(rover).rover);
-    setCurrentPage(1);
-    getPicturesCount.refetch();
+    setRoverName(JSON.parse(rover).rover); //assign rover name to a state for reasons of easy comparison later in the code
+    getPicturesCount.refetch(); //get new total number of picture for the different rovers selected
     window.scrollTo(0, 0); //Scroll to top after each page change
     return data;
   });
