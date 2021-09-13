@@ -1,24 +1,36 @@
-import { AxiosResponse } from "../../../interfaces/response";
-import { INasaData } from "../../../interfaces/nasa-data";
+import {
+  AxiosResponse,
+  AxiosResponseRover,
+} from "../../../interfaces/response";
+import { INasaData, IRoverData } from "../../../interfaces/nasa-data";
 import Axios from "../axios";
+import { IOptions } from "../../../interfaces/options";
 
-export const GetPictures = async (page: number) => {
+export const GetRovers = async () => {
+  const response: AxiosResponseRover<IRoverData> = await Axios.get(
+    "/mars-photos/api/v1/rovers"
+  );
+  return response;
+};
+
+export const GetPictures = async (page: number, options: string) => {
+  const option: IOptions = JSON.parse(options);
   const response: AxiosResponse<INasaData> = await Axios.get(
-    "/mars-photos/api/v1/rovers/curiosity/photos",
+    `/mars-photos/api/v1/rovers/${option.rover}/photos`,
     {
       params: {
         page: page,
-        sol: 1000,
+        sol: option.sol,
       },
     }
   );
   return response;
 };
 
-export const GetPicturesCount = async () => {
+export const GetPicturesCount = async (rover: string, sol: number) => {
   const response: AxiosResponse<INasaData> = await Axios.get(
-    "/mars-photos/api/v1/rovers/curiosity/photos",
-    { params: { sol: 1000 } }
+    `/mars-photos/api/v1/rovers/${rover}/photos`,
+    { params: { sol: sol } }
   );
   return response;
 };

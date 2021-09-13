@@ -12,6 +12,10 @@
     background-color: var(--opaque-red);
     color: var(--red);
   }
+  &[data-status="complete"] {
+    background-color: var(--opaque-yellow);
+    color: var(--yellow);
+  }
 
   .text {
     font-size: 12px;
