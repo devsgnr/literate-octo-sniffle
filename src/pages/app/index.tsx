@@ -60,9 +60,7 @@ const Home = () => {
       ) : (
         <div className={styles.main}>
           <div className={styles.header}>
-            <h1>
-              <span className="italics">Spacetagram</span>
-            </h1>
+            <div></div>
 
             <div className={styles.filter}>
               <h5>Rover:</h5>
